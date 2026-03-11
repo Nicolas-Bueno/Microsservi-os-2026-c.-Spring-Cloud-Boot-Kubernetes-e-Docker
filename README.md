@@ -2,9 +2,18 @@
 
 Este repositório contém meus estudos e implementações baseados no curso **Microsserviços com Spring Cloud, Spring Boot, Docker e Kubernetes**.
 
-O objetivo deste projeto é aprender e aplicar os principais conceitos de **arquitetura de microsserviços**, utilizando tecnologias modernas do ecossistema Java.
+O objetivo deste projeto é aprender e praticar **arquitetura de microsserviços utilizando o ecossistema Spring**, incluindo ferramentas de configuração, descoberta de serviços, gateway e containerização.
 
 ---
+
+## 🎯 Objetivo do Projeto
+
+Este projeto foi criado com o objetivo de:
+
+* Aprender **arquitetura de microsserviços**
+* Praticar o uso de **Spring Boot e Spring Cloud**
+* Trabalhar com **Docker e Kubernetes**
+* Simular uma arquitetura utilizada em aplicações reais
 
 # 🚀 Tecnologias Utilizadas
 
@@ -27,6 +36,16 @@ O objetivo deste projeto é aprender e aplicar os principais conceitos de **arqu
 # 📚 Conteúdos Estudados
 
 Durante o desenvolvimento deste projeto foram abordados os seguintes conceitos:
+
+## 📂 Estrutura do Projeto
+
+O projeto está organizado em diferentes serviços que compõem a arquitetura de microsserviços:
+
+* **config-server** → responsável pela centralização das configurações dos serviços
+* **eureka-server** → responsável pelo registro e descoberta dos microsserviços
+* **api-gateway** → ponto de entrada das requisições
+* **product-service** → microsserviço responsável pelo gerenciamento de produtos
+* **user-service** → microsserviço responsável pelo gerenciamento de usuários
 
 ### Fundamentos de Microsserviços
 
