@@ -1,7 +1,5 @@
 package br.com.nb.controller;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.nb.environment.InstanceInformationService;
 import br.com.nb.model.Book;
+import br.com.nb.repository.BookRepository;
 
 @RestController
 @RequestMapping("book-service")
@@ -19,6 +18,9 @@ public class BookController {
     @Autowired
     InstanceInformationService informationService;
 
+    @Autowired
+    BookRepository repository;
+
     //http://localhost:8100/book-service/1/BRL
     @GetMapping(value="/{id}/{currency}", 
     produces = MediaType.APPLICATION_JSON_VALUE)
@@ -26,7 +28,21 @@ public class BookController {
                          @PathVariable("currency")String currency){
 
         String port = informationService.retrieveServerPort();
-        
+
+        var book = repository.findById(id).orElseThrow();
+        book.setEnviroment(port);
+        book.setCurrency(currency);
+        return book;
+    }
+
+    /** 
+    @GetMapping(value="/{id}/{currency}", 
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Book findBook(@PathVariable("id")Long id,
+                         @PathVariable("currency")String currency){
+
+        String port = informationService.retrieveServerPort();
+
         return new Book(
             1L,
             "Erudio",
@@ -36,6 +52,6 @@ public class BookController {
             "BRL",
             port
         );
-    }
+    }*****/
 
 }
