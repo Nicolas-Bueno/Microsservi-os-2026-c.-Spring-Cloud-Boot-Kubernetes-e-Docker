@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import br.com.nb.dto.ExchangeDto;
 import br.com.nb.environment.InstanceInformationService;
 import br.com.nb.model.Book;
+import br.com.nb.proxy.ExchangeProxy;
 import br.com.nb.repository.BookRepository;
 
 @RestController
@@ -21,12 +22,30 @@ public class BookController {
 
     @Autowired
     InstanceInformationService informationService;
-
     @Autowired
     BookRepository repository;
+    @Autowired
+    private ExchangeProxy proxy;
 
     //http://localhost:8100/book-service/1/BRL
     @GetMapping(value="/{id}/{currency}", 
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Book findBook(@PathVariable("id")Long id,
+                         @PathVariable("currency")String currency){
+
+        String port = informationService.retrieveServerPort();
+
+        var book = repository.findById(id).orElseThrow();
+
+        ExchangeDto exchange = proxy.getExchange(book.getPrice(), "USD", currency);
+
+        book.setEnviroment(port + "Feign");
+        book.setPrice(exchange.getConvertedValue());
+        book.setCurrency(currency);
+        return book;
+    }
+
+   /** @GetMapping(value="/{id}/{currency}", 
     produces = MediaType.APPLICATION_JSON_VALUE)
     public Book findBook(@PathVariable("id")Long id,
                          @PathVariable("currency")String currency){
@@ -52,7 +71,7 @@ public class BookController {
         return book;
     }
 
-    /** @GetMapping(value="/{id}/{currency}", 
+    @GetMapping(value="/{id}/{currency}", 
     produces = MediaType.APPLICATION_JSON_VALUE)
     public Book findBook(@PathVariable("id")Long id,
                          @PathVariable("currency")String currency){
