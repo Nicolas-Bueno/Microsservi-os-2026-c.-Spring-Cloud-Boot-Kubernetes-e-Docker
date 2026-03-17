@@ -1,0 +1,7 @@
+br\com\nb\model\Book.class
+br\com\nb\Startup.class
+br\com\nb\proxy\ExchangeProxy.class
+br\com\nb\environment\InstanceInformationService.class
+br\com\nb\dto\ExchangeDto.class
+br\com\nb\controller\BookController.class
+br\com\nb\repository\BookRepository.class
